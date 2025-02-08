@@ -1,0 +1,123 @@
+
+
+/* h1{
+    color: blue;
+} */
+
+
+#heading-1{
+    color: rgba(255, 0, 0, 0.5);
+}
+
+.heading{
+    color: blue;
+}
+
+
+h1{
+    color: red;
+}
+
+.box{
+   
+    border: 5px solid green;
+    /* Outer Space */
+    margin: 50px;
+    /* Inner space */   
+    padding: 50px;
+
+    /* Two Parameters */
+    /* padding: 50px 100px; */
+
+    /* Four parameters */
+    /* padding: 50px 100px 150px 200px; */
+
+    /* padding-top: 50px;
+    padding-right: 100px;
+    padding-bottom: 150px;
+    padding-left: 200px; */
+}
+
+h1{
+    color: white;
+}
+
+.box-1{
+    width: 200px;
+    height: 200px;
+    background-color: blue;
+    padding: 50px;
+}
+
+.box-2{
+    width: 200px;
+    height: 200px;
+    background-color: green;
+    box-sizing: border-box;
+    padding: 50px;
+    border: 10px solid red;
+}
+
+.position-parent{
+    width: 300px;
+    height: 300px;
+    background-color: blue;
+    /* position: static; */
+    /* position: relative; */
+    top: 50px;
+    left: 50px;
+}
+
+.position-child{
+    width: 100px;
+    height: 100px;
+    background-color: orangered;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+}
+
+/* ul li{
+    color: red;
+} */
+
+/* .list-1{
+    color: red;
+}
+
+
+.list-2{
+    color: blue;
+}
+
+
+.list-3{
+    color: green;
+} */
+
+/* ul li:nth-child(1){
+    color: red;
+}
+
+ul li:nth-child(2){
+    color: blue;
+}
+
+ul li:nth-child(3){
+    color: green;
+} */
+
+button{
+    border: none;
+    padding: 10px 20px;
+    background-color: blue;
+    color: #ffffff;
+    border-radius: 15px;
+    transition: all 1s;
+}
+
+button:hover{
+    background-color: orangered;
+    color: #ffffff;
+    border-radius: 0px;
+}

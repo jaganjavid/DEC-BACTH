@@ -1,0 +1,57 @@
+
+
+
+.parent{
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.parent > div {
+    width: 200px;
+    height: 200px;
+    background-color: blue;
+}
+
+.parent > div h4{
+    text-align: center;
+    color: #ffffff;
+}
+
+
+@media only screen and (min-width: 1000px) {
+    .parent > div:nth-child(1){
+        background-color: #008000;
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+    .parent > div:nth-child(2){
+        background-color: #8d088d;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .parent > div:nth-child(3){
+        background-color: darkorange;
+    }
+}
+
+
+@media only screen and (max-width: 700px) {
+    .parent > div:nth-child(1){
+        background-color: darkorange;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .parent > div:nth-child(2){
+        background-color: #8d088d;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .parent > div:nth-child(3){
+        background-color: #008000;
+    }
+}

@@ -1,0 +1,18 @@
+
+console.log(this);
+
+function a(){
+    console.log(this);
+}
+
+a();
+
+const user = {
+    name:"Jagan",
+    age:function(){
+        console.log(this);
+    }
+}
+
+console.log(user.name);
+user.age();
