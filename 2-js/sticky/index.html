@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+        .notes {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .note {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            width: 150px;
+            height: 150px;
+            position: relative;
+        }
+        .delete {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            cursor: pointer;
+            color: red;
+        }
+        .add-note {
+            width: 150px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed gray;
+            cursor: pointer;
+        }
+        .note input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sticky Notes</h2>
+        <div class="notes" id="notes">
+            <div class="add-note" onclick="addNote()">+</div>
+        </div>
+    </div>
+
+    <script>
+        function addNote() {
+            let note = document.createElement("div");
+            note.className = "note";
+            note.innerHTML = `<input type="text" placeholder="Type here...">
+                <span class="delete" onclick="deleteNote(this)">D</span>`;
+            document.getElementById("notes").insertBefore(note, document.querySelector(".add-note"));
+        }
+        function deleteNote(element) {
+            element.parentElement.remove();
+        }
+    </script>
+</body>
+</html>
