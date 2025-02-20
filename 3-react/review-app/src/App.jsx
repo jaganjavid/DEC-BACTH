@@ -1,9 +1,20 @@
-import React from 'react'
+import {Header, Footer} from "./components/Header"
+
 
 const App = () => {
   return (
-    <h1>Hello React</h1>
+    <div>
+      <Header text="Hello Javid" bgColor="blue"/>
+      <Header text="Hello Jagan" bgColor="green"/>
+
+      <Footer/>
+    </div>
   )
 }
 
+
+
+
+
 export default App
+
