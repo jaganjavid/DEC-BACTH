@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Header = ({text, bgColor}) => {
+const Header = ({text="Review App",bgColor="blue",textColor="#ffffff"}) => {
 
     // console.log(props);
     const headerStyle = {
         backgroundColor:bgColor,
-        color:"#ffffff"
+        color:textColor
     }
 
   return (
