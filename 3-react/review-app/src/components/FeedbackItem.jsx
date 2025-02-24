@@ -1,11 +1,17 @@
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
+import Card from "./sharder/Card";
+import { useContext } from "react";
+import FeedbackContext from "../context/FeedbackContext";
 
-const FeedbackItem = ({item,handleDelete}) => {
+const FeedbackItem = ({item}) => {
+
+
+  const {deleteFeedback} = useContext(FeedbackContext);
 
   
   return (
-    <div className='card'>
+    <Card>
        <div className='card-wrapper'>
          <h4>{item.text}</h4>
          
@@ -15,12 +21,12 @@ const FeedbackItem = ({item,handleDelete}) => {
            </div>
 
            <div className='delete'>
-              <MdDeleteOutline size="20px" color="red" onClick={() => handleDelete(item.id)}/>
+              <MdDeleteOutline size="20px" color="red" onClick={() => deleteFeedback(item.id)}/>
            </div>
 
          </div>
        </div>
-    </div>
+    </Card>
   )
 }
 
