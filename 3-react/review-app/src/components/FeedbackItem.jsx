@@ -7,7 +7,7 @@ import FeedbackContext from "../context/FeedbackContext";
 const FeedbackItem = ({item}) => {
 
 
-  const {deleteFeedback} = useContext(FeedbackContext);
+  const {editFeedback, deleteFeedback} = useContext(FeedbackContext);
 
   
   return (
@@ -17,7 +17,7 @@ const FeedbackItem = ({item}) => {
          
          <div>
            <div className='edit'>
-              <FiEdit size="20px" color="#ee8c68"/>
+              <FiEdit size="20px" color="#ee8c68" onClick={() => editFeedback(item)}/>
            </div>
 
            <div className='delete'>

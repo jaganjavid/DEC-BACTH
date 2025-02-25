@@ -1,10 +1,13 @@
-import { use, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "./sharder/Button";
 import Card from "./sharder/Card";
+import FeedbackContext from "../context/FeedbackContext";
+
 
 
 const FeedbackForm = ({handleAdd}) => {
 
+  const {addFeedback,updateFeedback,feedbackEdit} = useContext(FeedbackContext);
 
   const [text, setText] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(true);
@@ -36,10 +39,28 @@ const FeedbackForm = ({handleAdd}) => {
   const handleSubmit = (e) => {
      e.preventDefault();
 
-     handleAdd({text});
+     const newFeedback = {
+       text
+     }
+
+     if(feedbackEdit.edit === true){
+      updateFeedback(feedbackEdit.item.id, newFeedback)
+     }else{
+      addFeedback({text});
+     }
+
+    
 
      setText("");
+     setBtnDisabled(true);
   }
+
+  useEffect(() => {
+     if(feedbackEdit.edit === true){
+      setBtnDisabled(false);
+      setText(feedbackEdit.item.text);
+     }
+  }, [feedbackEdit])
 
 
   return (

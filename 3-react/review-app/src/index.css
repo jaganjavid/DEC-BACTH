@@ -16,14 +16,19 @@ body{
   background-color: rgb(202, 202, 202);
 }
 
+
 .container{
   max-width: 750px;
   margin: 0px auto;
 }
 
+main{
+  min-height: 85vh;
+}
+
 header{
   text-align: center;
-  padding: 20px 0px;
+  padding: 10px 0px;
   color: black;
   margin-bottom: 30px;
 }
@@ -96,4 +101,11 @@ button:disabled{
 .message{
   color: #b73939;
   margin-top: 20px;
+}
+
+footer{
+  padding: 10px;
+  background-color: lightgray;
+  color: #333333;
+  text-align: center;
 }
