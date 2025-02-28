@@ -3,6 +3,7 @@ import Header from "./components/Header"
 import Footer from "./components/Footer";
 import FeedbackList from "./components/FeedbackList";
 import FeedbackForm from "./components/FeedbackForm";
+import FeedbackStats from "./components/FeedbackStats";
 
 
 
@@ -40,6 +41,7 @@ const App = () => {
       <div className="container">
         <main>
           <FeedbackForm/>
+          <FeedbackStats/>
           <FeedbackList/>
         </main>
       </div>
