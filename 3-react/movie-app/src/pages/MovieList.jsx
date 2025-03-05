@@ -6,11 +6,6 @@ const MovieList = ({apiPath}) => {
 
   const {data:movies} = useFetch(apiPath);
 
-  console.log(movies);
-
-  
-
-
   return (
     <main className='min-h-screen'>
       <section className='max-w-6xl mx-auto py-6'>

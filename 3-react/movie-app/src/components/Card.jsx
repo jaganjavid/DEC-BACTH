@@ -2,8 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 const Card = ({movie}) => {
-
-  console.log(movie);
   
   const { id, original_title,overview,poster_path } = movie;
 
