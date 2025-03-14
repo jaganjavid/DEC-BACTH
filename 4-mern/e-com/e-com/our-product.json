@@ -1,0 +1,20 @@
+{
+  "name": "Wireless Mouse",
+  "price": 99.99,
+  "description": "Experience precise and ultra-fast scrolling with the Logitech MX Master 3S, designed for professionals and power users. This ergonomic wireless mouse features an 8K DPI sensor, Quiet Clicks for a more silent experience, and seamless multi-device connectivity. With USB-C quick charging and a battery life of up to 70 days on a full charge, it is perfect for long work sessions. Compatible with Windows, macOS, and Linux.",
+  "ratings": 4.8,
+  "images": [
+    {
+      "public_id": "shopit/products/mouse/xyz123",
+      "url": "http://xyz123.jpg"
+    },
+    {
+      "public_id": "shopit/products/mouse/abc456",
+      "url": "http://xyz456.jpg"
+    }
+  ],
+  "category": "Accessories",
+  "seller": "Amazon",
+  "stock": 120,
+  "numOfReviews": 275
+}
