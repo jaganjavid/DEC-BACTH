@@ -7,12 +7,13 @@
     "start": "node backend/app.js",
     "dev": "NODE_ENV=DEVELOPMENT nodemon backend/app.js",
     "prod": "NODE_ENV=PRODUCTION nodemon backend/app.js",
-    "seeder":"node backend/seeder/seeder.js"
+    "seeder": "node backend/seeder/seeder.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mongoose": "^8.12.1"

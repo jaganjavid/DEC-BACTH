@@ -6,6 +6,7 @@ import { connectDatabase } from "./config/dbConnect.js";
 import errorMiddleware from "./middlewares/errors.js";
 
 import productRoutes from "./routes/products.js";
+import authRoutes from "./routes/auth.js";
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1", productRoutes);
+app.use("/api/v1", authRoutes);
 
 // Using error middleware
 app.use(errorMiddleware);

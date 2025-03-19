@@ -16,6 +16,15 @@ export default (err, req, res, next) => {
     }
 
 
+    // Handle Mongoose Duplicate Key Error
+    if(err.code === 11000){
+
+        console.log(Object.keys(err.keyValue))
+        const message = `Duplicate ${Object.keys(err.keyValue)} entered`;
+        error = new ErrorHandler(message, 400);
+    }
+
+
     if(process.env.NODE_ENV === "DEVELOPMENT"){
         res.status(error.statusCode).json({
             message:error.message,
