@@ -8,6 +8,8 @@ import errorMiddleware from "./middlewares/errors.js";
 import productRoutes from "./routes/products.js";
 import authRoutes from "./routes/auth.js";
 
+import cookieParser from "cookie-parser";
+
 const app = express();
 
 dotenv.config({ path: "backend/config/config.env" });
@@ -25,6 +27,7 @@ connectDatabase();
 
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
     res.json({
