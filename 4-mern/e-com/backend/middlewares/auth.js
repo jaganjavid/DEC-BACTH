@@ -16,11 +16,24 @@ export const isAuthenticatedUser = catchAsyncErrors(async(req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    console.log(decoded);
-
-    req.user = await User.findById(decoded.id)
+    req.user = await User.findById(decoded.id);
 
     next();
 
 
 })
+
+// Authorize user roles
+
+export const authorizeRoles = (...roles) => {
+    return (req, res, next) => {
+        if(!roles.includes(req.user.role)){
+           return next(
+            new ErrorHandler(`Not allowed`, 403)
+           )
+        }
+
+        next();
+
+    }
+}
