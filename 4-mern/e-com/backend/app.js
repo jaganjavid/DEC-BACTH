@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 
 import { connectDatabase } from "./config/dbConnect.js";
 
@@ -24,7 +25,10 @@ process.on("uncaughtException", (err) => {
 
 connectDatabase();
 
-
+app.use(cors({
+    origin:"*",
+    credentials:true
+})) // Enable CORS for all request
 
 app.use(express.json());
 app.use(cookieParser());
