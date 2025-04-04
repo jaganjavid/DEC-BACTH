@@ -7,18 +7,26 @@ import APIFilters from "../utils/apiFilters.js"
 
 // Get - api/v1/products
 
-export const getProducts = catchAsyncErrors(async(req, res) => {
+export const getProducts = catchAsyncErrors(async(req, res, next) => {
 
     // const products = await Product.find({});
 
+    const resPerPage = 4;
 
     const apiFilters = new APIFilters(Product, req.query).search().filters();
+
+    // return next(new ErrorHandler("Hello", 400));
 
     let products = await apiFilters.query;
 
     let filteredProductsCount = products.length;
+
+    apiFilters.pagination(resPerPage);
+    
+    products = await apiFilters.query.clone();
     
     res.status(200).json({
+        resPerPage,
         filteredProductsCount,
         products
     })
