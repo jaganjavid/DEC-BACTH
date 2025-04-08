@@ -8,7 +8,11 @@ export const productApi = createApi({
     endpoints: (builder) => ({
         getProducts:builder.query({
             query:(params) => ({
-                url:"/products"
+                url:"/products",
+                params:{
+                    page:params?.page,
+                    keyword:params?.keyword
+                }
             })
         }),
         getProductDetails:builder.query({
