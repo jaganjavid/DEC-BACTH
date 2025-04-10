@@ -15,8 +15,17 @@ const Home = () => {
 
   const page = searchParams.get("page") || 1;
   const keyword = searchParams.get("keyword") || "";
+  const min = searchParams.get("min");
+  const max = searchParams.get("max");
+
+
 
   const params = { page, keyword };
+
+  min !== null && (params.min = min);
+  max !== null && (params.max = max);
+
+  console.log(params);
 
   const {data, error, isLoading, isError} = useGetProductsQuery(params);
 
@@ -60,7 +69,10 @@ const Home = () => {
 
        
 
-        <CustomPagination resPerpage={data?.resPerPage} filteredProductsCount={data?.filteredProductsCount}/>
+            <CustomPagination
+              resPerpage={data?.resPerPage}
+              filteredProductsCount={data?.filteredProductsCount}
+            />
     </div>
   )
 }
