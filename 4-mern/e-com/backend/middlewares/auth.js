@@ -20,7 +20,6 @@ export const isAuthenticatedUser = catchAsyncErrors(async(req, res, next) => {
 
     next();
 
-
 })
 
 // Authorize user roles
