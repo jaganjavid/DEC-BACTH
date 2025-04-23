@@ -17,6 +17,8 @@ const Home = () => {
   const keyword = searchParams.get("keyword") || "";
   const min = searchParams.get("min");
   const max = searchParams.get("max");
+  const category = searchParams.get("category");
+  const ratings = searchParams.get("ratings");
 
 
 
@@ -24,9 +26,9 @@ const Home = () => {
 
   min !== null && (params.min = min);
   max !== null && (params.max = max);
-
-  console.log(params);
-
+  category !== null && (params.category = category);
+  ratings !== null && (params.ratings = ratings);
+  
   const {data, error, isLoading, isError} = useGetProductsQuery(params);
 
 
@@ -34,7 +36,7 @@ const Home = () => {
 
   useEffect(() => {
     if(isError){
-        toast.error(error.data.message);
+        toast.error(error?.data?.message);
     }
   }, [isError]);
   
@@ -55,7 +57,7 @@ const Home = () => {
       
         <div className={keyword ? "col-6 col-md-9" : "col-6 col-md-12"}>
           <h1 id="products_heading" className="text-secondary">
-            {keyword ? `${data.products.length} product found with the ${keyword}` : "Lastest Products"}
+            {keyword ? `${data?.products?.length} product found with the ${keyword}` : "Lastest Products"}
           </h1>
 
           <section id='products'>

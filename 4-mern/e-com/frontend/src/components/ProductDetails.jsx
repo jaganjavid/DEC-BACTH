@@ -16,7 +16,6 @@ const ProductDetails = () => {
     const product = data?.products || {};
     const firstImage = product?.images?.[0]?.url || ``;
 
-    console.log(product);
 
     useEffect(() => {
         if (isError) {
