@@ -9,6 +9,9 @@ import Home from './components/Home'
 import ProductDetails from './components/ProductDetails';
 
 import { Toaster } from 'react-hot-toast';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+
 
 
 
@@ -25,6 +28,9 @@ function App() {
             <Routes>
               <Route path='/' element={<Home/>}/>
               <Route path='/product/:id' element={<ProductDetails/>}/>
+              <Route path='/login' element={<Login/>}/>
+              <Route path='/register' element={<Register/>}/>
+              <Route path='/me/profile' element={<Register/>}/>
             </Routes>
           </div>
         </main>
