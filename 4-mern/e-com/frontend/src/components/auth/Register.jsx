@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useRegisterMutation } from '../../redux/api/authApi';
-
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Register = () => {
 
+   const navigate = useNavigate();
+
 
     const [register, {isLoading, error, data}] = useRegisterMutation();
+    const {isAuthenticated} = useSelector((state) => state.auth)
     
 
     const [user, setUser] = useState({
@@ -18,6 +22,12 @@ const Register = () => {
     })
 
   const {name, email, password} = user;
+
+  useEffect(() => {
+      if(isAuthenticated){
+        navigate("/");
+      }
+  }, [isAuthenticated, navigate]);
   
   useEffect(() => {
     if(error){
