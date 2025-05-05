@@ -8,7 +8,6 @@ const ProtectedRoute = ({children}) => {
 
   const {isAuthenticated, loading} = useSelector((state) => state.auth);
 
-  console.log(loading);
 
   if(loading){
     return <Loader/>

@@ -16,6 +16,11 @@ import UpdateProfile from './components/user/UpdateProfile';
 import UploadAvatar from './components/user/UploadAvatar';
 import UpdatePassword from './components/user/UpdatePassword';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import ForgotPassword from './components/auth/ForgotPassword';
+import ResetPassword from './components/auth/ResetPassword';
+import Cart from './components/cart/Cart';
+
+
 
 
 
@@ -35,6 +40,8 @@ function App() {
               <Route path='/product/:id' element={<ProductDetails/>}/>
               <Route path='/login' element={<Login/>}/>
               <Route path='/register' element={<Register/>}/>
+              <Route path='/password/forgot' element={<ForgotPassword/>}/>
+              <Route path='/password/reset/:token' element={<ResetPassword/>}/>
               <Route path='/me/profile' element={
                 <ProtectedRoute>
                   <Profile/>
@@ -53,6 +60,7 @@ function App() {
                   <UpdatePassword/>
                 </ProtectedRoute>
               }/>
+               <Route path='/cart' element={<Cart/>}/>
             </Routes>
           </div>
         </main>
