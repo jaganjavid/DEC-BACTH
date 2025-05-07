@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { countries } from 'countries-list'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { saveShippingInfo } from '../../redux/features/cartSlice';
-
+import { useNavigate } from "react-router-dom";
+import CheckOutSteps from './CheckOutSteps';
 
 
 const Shipping = () => {
 
   
   const countriesList = Object.values(countries);
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -20,20 +23,40 @@ const Shipping = () => {
   const [phoneNo, setPhoneNo] = useState("");  
   const [country, setCountry] = useState("");  
 
+
+  const { shippingInfo } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    if(shippingInfo){
+      setAddress(shippingInfo.address);
+      setCity(shippingInfo.city);
+      setZipcode(shippingInfo.zipcode);
+      setPhoneNo(shippingInfo.phoneNo);
+      setCountry(shippingInfo.country);
+    }
+  },[shippingInfo]);
+
   const submitHandler = (e) => {
     e.preventDefault();
 
     dispatch(saveShippingInfo({
         address,
-        city,zipcode,
+        city,
+        zipcode,
         phoneNo,
         country
     }))
+
+    navigate("/confirm_order");
 
   }
 
 
   return (
+     <>
+
+     <CheckOutSteps shipping/>
+     
      <div className="row wrapper mb-5">
       <div className="col-10 col-lg-5">
         <form
@@ -117,6 +140,7 @@ const Shipping = () => {
         </form>
       </div>
     </div>
+     </>
   )
 }
 
