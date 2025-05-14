@@ -1,22 +1,93 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CheckOutSteps from './CheckOutSteps';
+import { useSelector } from 'react-redux';
+import {calculateOrderCost} from "../../helpers/helpers";
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { useCreateNewOrderMutation, useStripeCheckoutSessionMutation } from '../../redux/api/orderApi';
+
 
 
 
 const PaymentMethod = () => {
 
-  const [method, setMethod] = useState("");   
+  const navigate = useNavigate();
+
+  const [method, setMethod] = useState("");  
+  
+  const {shippingInfo, cartItems} = useSelector((state) => state.cart);
+
+  const { itemsprice,shippingPrice,taxPrice, totalPrice} = calculateOrderCost(cartItems);
+
+  const [createNewOrder, {isLoading, error, isSuccess}] = useCreateNewOrderMutation();
+
+  const [stripeCheckoutSession, {data:checkoutdata, error:checkoutError, isLoading:checkoutLoading}] = useStripeCheckoutSessionMutation();
+
+
+  useEffect(() => {
+    if(checkoutdata){
+      window.location.href = checkoutdata.url;
+    }
+
+    if(checkoutError){
+      toast.error(checkoutError?.data?.message);
+    }
+  }, [checkoutdata, checkoutError]);
+
+  useEffect(() => {
+    if(error){
+      toast.error(error?.data?.message);
+    }
+
+    if(isSuccess){
+      navigate("/");
+      toast.success("Your order placed");
+    }
+  }, [error, isSuccess]);
+
 
   const submitHandler = (e) => {
 
     e.preventDefault();
 
     if(method === "COD"){
-        alert("COD")
+      
+      //  Create a COD Order
+
+      const orderData = {
+         shippingInfo, 
+         orderItems:cartItems,
+         itemsPrice:itemsprice,
+         shippingAmount:shippingPrice,
+         taxAmount:taxPrice,
+         totalAmount:totalPrice,
+         paymentInfo:{
+          status:"Not Paid"
+         },
+         paymentMethod:"COD"
+      }
+
+      createNewOrder(orderData);
+
     }
 
     if(method === "Card"){
-        alert("Card")
+      
+      // Stripe checkout
+      const orderData = {
+        shippingInfo, 
+        orderItems:cartItems,
+        itemsPrice:itemsprice,
+        shippingAmount:shippingPrice,
+        taxAmount:taxPrice,
+        totalAmount:totalPrice,
+     }
+
+     stripeCheckoutSession(orderData);
+
+
+
+
     }
 
   }
@@ -42,7 +113,7 @@ const PaymentMethod = () => {
             value="COD"
             onChange={(e) => setMethod("COD")}
           />
-          <label className="form-check-label" for="codradio">
+          <label className="form-check-label" htmlFor="codradio">
             Cash on Delivery
           </label>
         </div>
@@ -55,12 +126,12 @@ const PaymentMethod = () => {
             value="Card"
             onChange={(e) => setMethod("Card")}
           />
-          <label className="form-check-label" for="cardradio">
+          <label className="form-check-label" htmlFor="cardradio">
             Card - VISA, MasterCard
           </label>
         </div>
 
-        <button id="shipping_btn" type="submit" className="btn py-2 w-100">
+        <button id="shipping_btn" type="submit" className="btn py-2 w-100" disabled={checkoutLoading}>
           CONTINUE
         </button>
       </form>
