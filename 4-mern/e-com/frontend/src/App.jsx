@@ -23,6 +23,7 @@ import Shipping from './components/cart/Shipping';
 import ConfirmOrder from './components/cart/ConfirmOrder';
 import PaymentMethod from './components/cart/PaymentMethod';
 import Myorders from './components/order/Myorders';
+import OrderDetails from './components/order/OrderDetails';
 
 
 
@@ -82,6 +83,11 @@ function App() {
               <Route path='/me/orders' element={
                 <ProtectedRoute>
                  <Myorders/>
+                </ProtectedRoute>
+              }/>
+              <Route path='/orders/:id' element={
+                <ProtectedRoute>
+                 <OrderDetails/>
                 </ProtectedRoute>
               }/>
               <Route path='/cart' element={<Cart/>}/>
