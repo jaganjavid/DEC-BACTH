@@ -40,7 +40,7 @@ const PaymentMethod = () => {
     }
 
     if(isSuccess){
-      navigate("/");
+      navigate("/me/orders?order_success=true");
       toast.success("Your order placed");
     }
   }, [error, isSuccess]);
