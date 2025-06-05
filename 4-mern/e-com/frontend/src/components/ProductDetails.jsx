@@ -4,8 +4,10 @@ import { useGetProductDetailsQuery } from "../redux/api/productsApi"
 import Loader from "./layout/Loader";
 import StarRatings from "react-star-ratings";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCartItem } from "../redux/features/cartSlice";
+import NewReviews from "./reviews/NewReviews";
+import ListReviews from "./reviews/ListReviews";
 
 
 const ProductDetails = () => {
@@ -20,6 +22,7 @@ const ProductDetails = () => {
 
 
     const product = data?.products || {};
+    const {isAuthenticated} = useSelector((state) => state.auth);
     const firstImage = product?.images?.[0]?.url || ``;
 
 
@@ -160,10 +163,12 @@ const ProductDetails = () => {
                 <hr />
                 <p id="product_seller mb-3">Sold by: <strong>{product.seller}</strong></p>
 
-                <div className="alert alert-danger my-5" type="alert">
+               {isAuthenticated ? <NewReviews productId={product._id}/> :  <div className="alert alert-danger my-5" type="alert">
                     Login to post your review.
-                </div>
+                </div>}
             </div>
+
+            {product?.reviews?.length > 0 && <ListReviews reviews={product.reviews}/>}
             
         </div>
     )
