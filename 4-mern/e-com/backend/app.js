@@ -32,7 +32,11 @@ app.use(cors({
     credentials:true
 })) 
 
-app.use(express.json({limit:"10mb"}));
+app.use(express.json({limit:"10mb", verify: (req, res, buf) => {
+    if (req.originalUrl === '/api/v1/payment/webhook') {
+      req.rawBody = buf.toString();
+    }
+  }}));
 app.use(express.urlencoded({extended:true, limit:"10mb"}))
 app.use(cookieParser());
 
