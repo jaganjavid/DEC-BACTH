@@ -1,7 +1,6 @@
 import Product from "../models/product.js"
 import Order from "../models/order.js";
 import ErrorHandler from "../utils/errorHandler.js";
-
 import catchAsyncErrors from "../middlewares/catchAsyncErrors.js";
 import APIFilters from "../utils/apiFilters.js"
 
@@ -51,6 +50,24 @@ export const newProduct = async(req, res) => {
 export const getProductDetails = catchAsyncErrors(async(req, res, next) => {
 
     const products = await Product.findById(req.params.id).populate("reviews.user");
+
+    if(!products){
+       return next(new ErrorHandler("Product not found", 404))
+    }
+
+    res.status(200).json({
+        products
+    })
+
+
+})
+
+
+// Get All products => /api/v1/admin/products
+
+export const getAdminProducts = catchAsyncErrors(async(req, res, next) => {
+
+    const products = await Product.find();
 
     if(!products){
        return next(new ErrorHandler("Product not found", 404))

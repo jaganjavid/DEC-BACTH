@@ -153,3 +153,103 @@ export const deleteOrder = catchAsyncErrors(async(req, res, next) => {
  
 })
 
+// Helper to generate an array of dates between two dates
+
+function getDatesBetween(startDate, endDate){
+   const dates = [];
+
+   let currentDate = new Date(startDate);
+
+   while(currentDate <= endDate){
+     const formattedDate = currentDate.toISOString().split("T")[0];
+     dates.push(formattedDate);
+     currentDate.setDate(currentDate.getDate() + 1);
+   }
+
+   return dates;
+}
+
+async function getSalesData(startDate, endDate) {
+    
+    const salesData = await Order.aggregate([
+        {
+            // Stage 1 - filter result
+            $match:{
+                createdAt:{
+                    $gte: new Date(startDate),
+                    $lte: new Date(endDate)
+                }
+            }
+        },
+        {
+           // State 2 - Group
+           $group:{
+             _id:{
+                date:{$dateToString: { format: "%Y-%m-%d", date: "$createdAt" }}
+             },
+             totalSales: {$sum:"$totalAmount"},
+             numOrders:{$sum:1} // count the number of orders
+           }
+        }
+    ]);
+
+   const salesMap = new Map();
+   let totalSales = 0;
+   let totalNumOrders = 0;
+
+   for(const entry of salesData){
+     const date = entry._id.date;
+     const sales = entry.totalSales;
+     const numOrders = entry.numOrders;
+
+     salesMap.set(date, {sales, numOrders});
+     totalSales += sales
+     totalNumOrders += numOrders;
+   }
+
+   const datesBetween = getDatesBetween(startDate, endDate);
+
+   const finalSalesData = datesBetween.map((date) => {
+    const entry = salesMap.get(date) || {sales : 0, numOrders:0};
+
+    // console.log(entry);
+    return {
+        date,
+        sales:entry.sales,
+        numOrders:entry.numOrders
+    }
+   });
+
+
+   return{
+    totalSales,
+    totalNumOrders,
+    salesData:finalSalesData
+   }
+
+
+}
+
+
+// Get sales => api/v1/admin/get_sales
+
+export const getSales = catchAsyncErrors(async(req, res, next) => {
+
+    const startDate = new Date(req.query.startDate);
+    const endDate = new Date(req.query.endDate);
+
+    startDate.setUTCHours(0,0,0,0);
+    endDate.setUTCHours(23,59,59,999);
+
+    const { salesData, totalSales, totalNumOrders } = await getSalesData(startDate, endDate);
+ 
+    res.status(200).json({ 
+        sussess:true,
+        salesData,
+        totalSales,
+        totalNumOrders
+     }
+    )
+ 
+})
+
